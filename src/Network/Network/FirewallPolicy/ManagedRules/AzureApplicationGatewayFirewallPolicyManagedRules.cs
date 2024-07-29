@@ -33,6 +33,12 @@ namespace Microsoft.Azure.Commands.Network
         [ValidateNotNullOrEmpty]
         public PSApplicationGatewayFirewallPolicyExclusion[] Exclusion { get; set; }
 
+        [Parameter(
+          Mandatory = false,
+          HelpMessage = "List of Exception Entry.")]
+        [ValidateNotNullOrEmpty]
+        public PSApplicationGatewayFirewallPolicyException[] Exception { get; set; }
+
         public override void ExecuteCmdlet()
         {
             base.ExecuteCmdlet();
@@ -43,6 +49,7 @@ namespace Microsoft.Azure.Commands.Network
             var managedRules = new PSApplicationGatewayFirewallPolicyManagedRules()
             {
                 Exclusions = this.Exclusion?.ToList(),
+                Exceptions = this.Exception?.ToList(),
                 ManagedRuleSets = this.ManagedRuleSet?.ToList()
             };
 
